@@ -65,3 +65,28 @@ if [ "$1" = "vim" ]; then
 	shift
 	vim -S "$DIR/vim.so" "$@"
 fi
+
+if [ "$1" = "editor" ]; then
+	tmux split -h
+	tmux resize-pane -t 1 -x 80
+	tmux select-pane -t 0
+	tmux split -v
+	tmux resize-pane -t 1 -y 8
+	tmux select-pane -t 0
+	tmux split -h
+	tmux resize-pane -t 0 -x 30
+	tmux select-pane -t 3
+	tmux split -v
+	tmux send-keys -t 0 "rg filemenu 1" Enter
+	tmux send-keys -t 1 "rg vim" Enter
+	tmux send-keys -t 2 "pwd" Enter
+	tmux send-keys -t 4 "top" Enter
+	tmux select-pane -t 1
+fi
+
+if [ "$1" = "history" ]; then
+	line=`cat ~/.bash_history | rg fzf --layout reverse-list --exact`
+	echo "$line"
+	echo "$($line)"
+fi
+	
