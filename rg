@@ -15,7 +15,9 @@ if [ "$1" = "bind" ]; then
 fi
 
 if [ "$1" = "install" ]; then
-	echo "Installing tmux"
+	echo '#!/bin/bash' > ~/.local/bin/rg
+	echo "$DIR/rg \"\$@\"" >> ~/.local/bin/rg
+	chmod 755 ~/.local/bin/rg
 	sudo apt install tmux git
 	git clone --depth 1 https://github.com/junegunn/fzf.git "$DIR/fzf"
 	$DIR/fzf/install --no-key-bindings --no-update-rc --no-completion --no-bash
