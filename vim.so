@@ -19,5 +19,5 @@ vmap <F5> <Esc>v
 
 vmap c ygv<Esc>
 vmap x d
-vmap v <Esc>p
-nmap v p
+vmap v <Esc>gp
+nmap v gp
