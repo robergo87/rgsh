@@ -2,9 +2,15 @@
 
 DIR="$(dirname $(readlink -f $0))"
 
+if [ "$1" = "echo" ]; then
+	shift
+	echo "echo"
+	echo $@
+fi
+
 if [ "$1" = "bind" ]; then
 	echo '#!/bin/bash' > ~/.local/bin/rg
-	echo "$DIR/rg \$\@" >> ~/.local/bin/rg
+	echo "$DIR/rg \"\$@\"" >> ~/.local/bin/rg
 	chmod 755 ~/.local/bin/rg
 fi
 
