@@ -2,7 +2,13 @@
 
 DIR="$(dirname $(readlink -f $0))"
 
-if [ $1 = "install" ]; then
+if [ "$1" = "bind" ]; then
+	echo '#!/bin/bash' > ~/.local/bin/rg
+	echo "$DIR/rg \$\@" >> ~/.local/bin/rg
+	chmod 755 ~/.local/bin/rg
+fi
+
+if [ "$1" = "install" ]; then
 	echo "Installing tmux"
 	sudo apt install tmux git
 	git clone --depth 1 https://github.com/junegunn/fzf.git "$DIR/fzf"
