@@ -22,7 +22,6 @@ if [ "$1" = "install" ]; then
 	git clone --depth 1 https://github.com/junegunn/fzf.git "$DIR/fzf"
 	$DIR/fzf/install --no-key-bindings --no-update-rc --no-completion --no-bash
 fi
-
 if [ "$1" = "fzf" ]; then
 	shift
 	$DIR/fzf/bin/fzf "$@"
@@ -39,11 +38,13 @@ if [ "$1" = "tmux" ]; then
 fi
 
 if [ "$1" = "gitadd" ]; then
-	toadd=`git status -s | $DIR/fzf/bin/fzf -m | cut -d' ' -f2-`
+	toadd=`git status -s | $DIR/fzf/bin/fzf -m`
+	IFS=$'\n'
 	for file in $toadd
 	do
-		echo "git add $file"
-		git add "$file"
+		pathonly=`echo "$file" | cut -c 4-`
+		echo "git add $pathonly"
+		git add "$pathonly"
 	done
 fi
 
