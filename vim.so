@@ -22,7 +22,9 @@ vmap c ygv<Esc>
 vmap x d
 vmap v <Esc>gp
 nmap v gp
+nmap z :undo<CR>
 
 imap <F2> <Esc>:w<CR>a
 nmap <F2> <Esc>:w<CR>
 vmap <F2> <Esc>:w<CR>v
+
