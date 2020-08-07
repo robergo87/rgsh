@@ -43,7 +43,8 @@ do
     	if [ -d "$full_path" ]; then
 			curdir="$full_path"
 		else
-			tmux send-keys -t "$1" Escape ":tab drop " "$full_path" Enter \; select-pane -t "$1"
+			tmux send-keys -t "$1" C-r "$full_path" Enter
+			#tmux send-keys -t "$1" Escape ":tab drop " "$full_path" Enter \; select-pane -t "$1"
     	fi
 	fi
 done

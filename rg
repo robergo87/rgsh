@@ -67,6 +67,11 @@ if [ "$1" = "vim" ]; then
 	vim -S "$DIR/vim.so" "$@"
 fi
 
+if [ "$1" = "nano" ]; then
+	shift
+	nano --tabsize=4 -i -S -l -m -T 4 -F "$@"
+fi
+
 if [ "$1" = "editor" ]; then
 	tmux split -h
 	tmux resize-pane -t 1 -x 80
