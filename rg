@@ -15,9 +15,11 @@ if [ "$1" = "bind" ]; then
 fi
 
 if [ "$1" = "install" ]; then
+	cd "$DIR"
 	echo '#!/bin/bash' > ~/.local/bin/rg
 	echo "$DIR/rg \"\$@\"" >> ~/.local/bin/rg
 	chmod 755 ~/.local/bin/rg
+	curl https://getmic.ro | bash
 	sudo apt install tmux git
 	git clone --depth 1 https://github.com/junegunn/fzf.git "$DIR/fzf"
 	$DIR/fzf/install --no-key-bindings --no-update-rc --no-completion --no-bash
@@ -57,14 +59,14 @@ if [ "$1" = "filemenu" ]; then
 	$DIR/menu.sh "$@"
 fi
 
-if [ "$1" = "fm" ]; then
-	shift 
-	$DIR/fm.sh "$@"
-fi
-
 if [ "$1" = "vim" ]; then
 	shift
 	vim -S "$DIR/vim.so" "$@"
+fi
+
+if [ "$1" = "micro" ]; then
+	shift
+	$DIR/micro --config-dir "$DIR/.micro" "$@"
 fi
 
 if [ "$1" = "nano" ]; then
@@ -84,7 +86,7 @@ if [ "$1" = "editor" ]; then
 	tmux select-pane -t 3
 	tmux split -v
 	tmux send-keys -t 0 "rg filemenu 1" Enter
-	tmux send-keys -t 1 "rg vim" Enter
+	tmux send-keys -t 1 "rg micro" Enter
 	tmux send-keys -t 2 "pwd" Enter
 	tmux send-keys -t 4 "top" Enter
 	tmux select-pane -t 1
