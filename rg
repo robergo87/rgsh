@@ -66,6 +66,7 @@ fi
 
 if [ "$1" = "micro" ]; then
 	shift
+	export TERM=xterm-256color
 	$DIR/micro --config-dir "$DIR/.micro" "$@"
 fi
 
