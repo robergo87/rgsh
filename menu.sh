@@ -33,8 +33,9 @@ do
 	file_select=${answer[1]}
 
 	if [ "$action" = "menu" ]; then
+		echo "$curdir/$file_select"
 		action=`printf "mv\nchmod\ntouch\nmkdir\nrm" | $DIR/fzf/bin/fzf --reverse`
-		$DIR/fm.sh "$action" "$file_select"
+		$DIR/fm.sh "$action" "$curdir/$file_select"
 	elif [ "$action" = "rm" ]; then
 		$DIR/fm.sh rm "$file_select"
 	elif [ ! -z "$file_select" ]; then
@@ -44,7 +45,7 @@ do
 			curdir="$full_path"
 		else
 			#tmux send-keys -t "$1" C-r "$full_path" Enter
-			tmux send-keys -t "$1" C-e "open $full_path" Enter
+			tmux send-keys -t "$1" C-e "tab $full_path" Enter \; select-pane -t "$1"
 			#tmux send-keys -t "$1" Escape ":tab drop " "$full_path" Enter \; select-pane -t "$1"
     	fi
 	fi
