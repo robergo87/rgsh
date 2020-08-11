@@ -22,18 +22,18 @@ def set_dir_list(pid, dirlist):
     with open(get_file_path(pid), "w") as f:
         f.write("\n".join(dirlist))
 
-def print_listing(listing, root, indent=0):
+def print_listing(listing, root, indent=0, home=''):
+    indent_code = "  " * indent
     for path in listing[root]["dir"]:
         basename = '\x1b[92m{}\x1b[0m'.format(os.path.basename(path))
-        print("{};{}{}{}".format(path, "  " * indent, "-" if path in listing else "+", basename))
+        symbol = "-" if path in listing else "+"
+        print("{};{}{}{}".format(path[len(home)+1:], indent_code, symbol, basename))
         if path in listing:
-            print_listing(listing, path, indent+1)
+            print_listing(listing, path, indent+1, home)
     for path in listing[root]["file"]:
         basename = os.path.basename(path)
         basename = '\x1b[94m{}\x1b[0m'.format(os.path.basename(path))
-        print("{}; {}{}".format(path, "  " * indent, basename))
- 
-
+        print("{}; {}{}".format(path[len(home)+1:], indent_code, basename))
 
 if action == "init":
     with open(get_file_path(pid), "w") as f:
@@ -70,7 +70,8 @@ if action == "print":
                 listing[curdir]["file"].append(fullpath)
             listing[curdir]["dir"].sort()
             listing[curdir]["file"].sort()
-    print_listing(listing, openeddirlist[0], 0)
+    home = openeddirlist[0]
+    print_listing(listing, openeddirlist[0], 0, home)
 
 
 

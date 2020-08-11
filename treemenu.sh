@@ -19,6 +19,7 @@ if [ "$1" = "home" ]; then
 	filepath=`echo "$2" | cut -d ";" -f 1`
 	filename=`echo "$2" | cut -d ";" -f 2`
 	if [ -d "$filepath" ]; then
+		tmux send-keys -t "$4" C-e "cd $filepath" Enter 
 		$DIR/filetree.py init "$3" $filepath
 	fi
 	exit 0
