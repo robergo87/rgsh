@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
 
 import sys, os
 
@@ -24,12 +24,13 @@ def set_dir_list(pid, dirlist):
 
 def print_listing(listing, root, indent=0):
     for path in listing[root]["dir"]:
-        basename = os.path.basename(path)
+        basename = '\x1b[92m{}\x1b[0m'.format(os.path.basename(path))
         print("{};{}{}{}".format(path, "  " * indent, "-" if path in listing else "+", basename))
         if path in listing:
             print_listing(listing, path, indent+1)
     for path in listing[root]["file"]:
         basename = os.path.basename(path)
+        basename = '\x1b[94m{}\x1b[0m'.format(os.path.basename(path))
         print("{}; {}{}".format(path, "  " * indent, basename))
  
 
