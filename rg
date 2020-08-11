@@ -104,4 +104,7 @@ if [ "$1" = "history" ]; then
 	echo "$line"
 	echo "$($line)"
 fi
-	
+
+if [ "$1" = "search" ]; then	
+	grep --color=always -rn . -e "$2" | rg fzf --ansi --layout=reverse-list
+fi
