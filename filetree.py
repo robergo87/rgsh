@@ -1,4 +1,3 @@
-/home/pi/rgsh/filetree.py
 #!/usr/bin/python3
 
 import sys, os

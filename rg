@@ -59,6 +59,13 @@ if [ "$1" = "filemenu" ]; then
 	$DIR/menu.sh "$@"
 fi
 
+if [ "$1" = "treemenu" ]; then
+	shift 2
+	$DIR/treemenu.sh display "$@"
+	exit 0
+fi
+
+
 if [ "$1" = "vim" ]; then
 	shift
 	vim -S "$DIR/vim.so" "$@"
@@ -86,7 +93,7 @@ if [ "$1" = "editor" ]; then
 	tmux resize-pane -t 0 -x 30
 	tmux select-pane -t 3
 	tmux split -v
-	tmux send-keys -t 0 "rg filemenu 1" Enter
+	tmux send-keys -t 0 "rg treemenu display 1" Enter
 	tmux send-keys -t 1 "rg micro" Enter
 	tmux send-keys -t 2 "pwd" Enter
 	tmux send-keys -t 4 "top" Enter

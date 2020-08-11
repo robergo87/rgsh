@@ -1,6 +1,15 @@
 #!/bin/bash
 
 clear
+DIR="$(dirname $(readlink -f $0))"
+
+
+if [ "$1" = "menu" ]; then
+	filepath=`echo "$2" | cut -d";" -f1`
+	opt=`printf "mv\nchmod\ntouch\nmkdir\nrm" | $DIR/fzf/bin/fzf --reverse`
+	$DIR/fm.sh "$opt" "$filepath"
+	exit 0
+fi
 
 if [ "$1" = "touch" ]; then
 	echo "new filename"
@@ -14,7 +23,7 @@ if [ "$1" = "mkdir" ]; then
 	echo "new dirname"
 	read -i "$2" -e filename
 	if [ ! -z "$filename" ]; then
-		mkdir $2
+		mkdir "$filename"
 	fi
 fi
 
@@ -39,6 +48,16 @@ if [ "$1" = "mv" ]; then
 	read -i "$2" -e filename
 	if [ ! -z "$filename" ]; then
 		mv "$2" "$filename"
+	else
+		echo "Aborting"
+	fi
+fi
+
+if [ "$1" = "cp" ]; then
+	echo "Move $2 to:"
+	read -i "$2" -e filename
+	if [ ! -z "$filename" ]; then
+		cp -av "$2" "$filename"
 	else
 		echo "Aborting"
 	fi
