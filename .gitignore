@@ -1,3 +1,6 @@
 fzf
 .git
 *.swp
+.micro/backups/*
+.micro/buffers/history
+micro

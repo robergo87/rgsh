@@ -83,21 +83,20 @@ if [ "$1" = "nano" ]; then
 fi
 
 if [ "$1" = "editor" ]; then
-	tmux split -h
-	tmux resize-pane -t 1 -x 80
-	tmux select-pane -t 0
-	tmux split -v
-	tmux resize-pane -t 1 -y 8
-	tmux select-pane -t 0
-	tmux split -h
-	tmux resize-pane -t 0 -x 30
-	tmux select-pane -t 3
-	tmux split -v
-	tmux send-keys -t 0 "rg treemenu display 1" Enter
-	tmux send-keys -t 1 "rg micro" Enter
-	tmux send-keys -t 2 "pwd" Enter
-	tmux send-keys -t 4 "top" Enter
-	tmux select-pane -t 1
+	tmux split -h \; \
+		resize-pane -t 1 -x 80 \; \
+		select-pane -t 0 \; split -v \; \
+		resize-pane -t 1 -y 8 \; \
+		select-pane -t 0 \; \
+		split -h \; \
+		resize-pane -t 0 -x 30 \; \
+		select-pane -t 3 \; \
+		split -t 3 -v \; \
+		send-keys -t 0 "rg treemenu display 1" Enter \; \
+		send-keys -t 1 "rg micro" Enter \; \
+		send-keys -t 2 "pwd" Enter \; \
+		send-keys -t 4 "top" Enter \; \
+		select-pane -t 1
 fi
 
 if [ "$1" = "history" ]; then
