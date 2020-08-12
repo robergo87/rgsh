@@ -10,7 +10,7 @@ if [ "$1" = "select" ]; then
 	if [ -d "$filepath" ]; then
 		$DIR/filetree.py toggle "$3" $filepath
 	else
-		tmux send-keys -t "$4" C-e "tab $filepath" Enter
+		tmux send-keys -t "$4" C-e "tab $filepath" Enter \; select-pane -t "$4"
 	fi
 	exit 0
 fi 
