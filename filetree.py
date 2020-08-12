@@ -27,13 +27,13 @@ def print_listing(listing, root, indent=0, home=''):
     for path in listing[root]["dir"]:
         basename = '\x1b[92m{}\x1b[0m'.format(os.path.basename(path))
         symbol = "-" if path in listing else "+"
-        print("{};{}{}{}".format(path[len(home)+1:], indent_code, symbol, basename))
+        print("{};{};{}{}{}".format(path, path[len(home)+1:], indent_code, symbol, basename))
         if path in listing:
             print_listing(listing, path, indent+1, home)
     for path in listing[root]["file"]:
         basename = os.path.basename(path)
         basename = '\x1b[94m{}\x1b[0m'.format(os.path.basename(path))
-        print("{}; {}{}".format(path[len(home)+1:], indent_code, basename))
+        print("{};{}; {}{}".format(path, path[len(home)+1:], indent_code, basename))
 
 if action == "init":
     with open(get_file_path(pid), "w") as f:
@@ -71,6 +71,7 @@ if action == "print":
             listing[curdir]["dir"].sort()
             listing[curdir]["file"].sort()
     home = openeddirlist[0]
+    print("{};..;..".format(os.path.dirname(openeddirlist[0])))
     print_listing(listing, openeddirlist[0], 0, home)
 
 
