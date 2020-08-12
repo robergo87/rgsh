@@ -105,6 +105,14 @@ if [ "$1" = "history" ]; then
 	echo "$($line)"
 fi
 
+if [ "$1" = "filegoto" ]; then
+	filepath=`echo "$3" | cut -d ":" -f 1`
+	fileline=`echo "$3" | cut -d ":" -f 2`
+	echo "filepath [$filepath] [$fileline]"
+	tmux send-keys -t "$2" C-e "tab $filepath" Enter C-e "goto $fileline" Enter \; select-pane -t "$2"
+fi
+
 if [ "$1" = "search" ]; then	
-	grep --color=always -rn . -e "$2" | rg fzf --ansi --layout=reverse-list
+	grep --color=always -rn . -e "$3" | rg fzf --ansi --layout=reverse-list \
+		--bind="enter:execute($DIR/rg filegoto $2 {})"
 fi
