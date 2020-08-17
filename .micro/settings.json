@@ -1,5 +1,6 @@
 {
-    "clipboard": "internal",
-    "colorscheme": "geany",
-    "scrollbar": true
+    "clipboard": "terminal",
+    "colorscheme": "atom-dark-transparent",
+    "scrollbar": true,
+    "backup": true
 }
