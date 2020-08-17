@@ -2,5 +2,5 @@
     "clipboard": "terminal",
     "colorscheme": "atom-dark-transparent",
     "scrollbar": true,
-    "backup": true
+    "backup": false
 }
